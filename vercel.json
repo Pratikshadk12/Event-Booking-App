@@ -1,0 +1,26 @@
+{
+  "name": "event-booking-app",
+  "version": 2,
+  "builds": [
+    {
+      "src": "event/package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "event/build"
+      }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/static/(.*)",
+      "headers": {
+        "cache-control": "s-maxage=31536000,immutable"
+      },
+      "dest": "/static/$1"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/event/build/index.html"
+    }
+  ]
+}
